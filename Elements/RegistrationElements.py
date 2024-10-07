@@ -13,7 +13,7 @@ class OnboardingElements:
     GetStartButton = "/html/body/app-root/app-get-started/div/div/div[2]/div[1]/div[1]/div/button"
     BusinessNameField = "/html/body/app-root/app-get-started/div/div/div[2]/app-business-info/div/div[2]/div[1]/div[1]/div/input"
     BusinessCategoryClick = "/html/body/app-root/app-get-started/div/div/div[2]/app-business-info/div/div[2]/div[1]/div[2]/app-searchable-drop-down/div/div/p"
-    BusinessCategoryValue = "/html/body/app-root/app-get-started/div/div/div[2]/app-business-info/div/div[2]/div[1]/div[2]/app-searchable-drop-down/div/ul/li[13]/div/p"
+    BusinessCategoryValue = "/html/body/app-root/app-get-started/div/div/div[2]/app-business-info/div/div[2]/div[1]/div[2]/app-searchable-drop-down/div/ul/li[1]/div/p"
     BusinessTypeClick = "/html/body/app-root/app-get-started/div/div/div[2]/app-business-info/div/div[2]/div[1]/div[3]/app-searchable-drop-down/div/div/p"
     BusinessTypeValue = "/html/body/app-root/app-get-started/div/div/div[2]/app-business-info/div/div[2]/div[1]/div[3]/app-searchable-drop-down/div/ul/li[2]/div/p"
     PhoneNumberField = "phoneNumber"

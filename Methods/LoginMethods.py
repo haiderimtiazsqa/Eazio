@@ -10,8 +10,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
-from Elements.LoginElements import LoginElements
-from Variables.LoginVariables import LoginVariable
+from Eazio.Elements.LoginElements import *
+from Eazio.Variables.LoginVariables import *
+
+
+# from Elements.LoginElements import LoginElements
+# from Variables.LoginVariables import LoginVariable
 
 
 def URL_open(context):

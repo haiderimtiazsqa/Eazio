@@ -12,10 +12,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
-from Elements.LoginElements import LoginElements
-from Variables.LoginVariables import LoginVariable
-from Elements.AddemployeeElements import *
-from Variables.AddEmployeeVariables import *
+from Eazio.Elements.LoginElements import LoginElements
+from Eazio.Variables.LoginVariables import LoginVariable
+from Eazio.Elements.AddemployeeElements import *
+from Eazio.Variables.AddEmployeeVariables import *
 import random
 import string
 

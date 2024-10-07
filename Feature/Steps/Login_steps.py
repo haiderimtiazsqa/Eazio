@@ -5,9 +5,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
-import Methods.LoginMethods
-from Methods.LoginMethods import *
-from Variables.LoginVariables import *
+# import Methods.LoginMethods
+from Eazio.Methods.LoginMethods import *
+from Eazio.Variables.LoginVariables import *
 
 
 

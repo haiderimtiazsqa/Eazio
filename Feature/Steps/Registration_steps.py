@@ -7,19 +7,19 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
-import Methods.LoginMethods
-from Methods.LoginMethods import *
-from Variables.LoginVariables import *
+# import Methods.LoginMethods
+from Eazio.Methods.LoginMethods import *
+from Eazio.Variables.LoginVariables import *
 from behave import when, given
-from Methods.RegistrationMethods import *
-from Methods.OnboardingMethods import *
+from Eazio.Methods.RegistrationMethods import *
+from Eazio.Methods.OnboardingMethods import *
 from behave import fixture, use_fixture
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from faker import Faker
 
-from Variables.RegistrationVariables import RegistrationVariables
-from Variables.RegistrationVariables import OnboardingVariables
+from Eazio.Variables.RegistrationVariables import RegistrationVariables
+from Eazio.Variables.RegistrationVariables import OnboardingVariables
 
 
 @given(u'the user is on the registration page')
@@ -43,7 +43,11 @@ def step_impl(context):
 
 @when(u'the user enters the Email')
 def step_impl(context):
+    # unique_email = generate_unique_email()
+    # enter_email(context, unique_email)
+    #
     unique_email = generate_unique_email()
+    context.email = unique_email  # Store the unique email in context
     enter_email(context, unique_email)
 
 @when(u'the user enters the Password')
@@ -116,13 +120,22 @@ def step_when_enters_address(context):
 @when('the user selects the country')
 def step_when_selects_country(context):
     select_country(context)
+    time.sleep(5)
 
 @when('the user selects the city')
 def step_when_selects_city(context):
     select_city(context)
+    time.sleep(10)
 
 @when('the user clicks the verify button')
 def step_when_clicks_verify_button(context):
     click_verify_button(context)
     time.sleep(10)
 
+@when(u'the user enters the OTP')
+def step_impl(context):
+    # if not hasattr(context, 'email'):
+    #     raise Exception("Email not found in context. Ensure the email is set before retrieving the OTP.")
+
+    unique_email = context.email  # Retrieve the email from context
+    retrieve_otp_and_verify(context, unique_email)  # Retrieve and verify the OTP

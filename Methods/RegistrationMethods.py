@@ -6,9 +6,9 @@ from faker import Faker
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from Elements.RegistrationElements import RegistrationElements
-from Methods.AddEmployeeMethods import generate_random_string
-from Variables.RegistrationVariables import RegistrationVariables
+from Eazio.Elements.RegistrationElements import RegistrationElements
+from Eazio.Methods.AddEmployeeMethods import generate_random_string
+from Eazio.Variables.RegistrationVariables import RegistrationVariables
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
@@ -86,11 +86,3 @@ def click_next_button(context):
     )
     next_button.click()
     time.sleep(5)
-
-
-
-
-
-
-
-
