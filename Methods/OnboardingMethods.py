@@ -1,9 +1,12 @@
 import string
 import time
+# from lib2to3.fixes.fix_input import context
 from random import random
-
+import re
 import fake
 from faker import Faker
+# from paramiko.agent import key
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -128,52 +131,108 @@ def click_verify_button(context):
 ####################=====enter OTP=====############################
 
 
+# def retrieve_otp_and_verify(context, yopmail_email):
+#     # Open Yopmail in a new tab
+#     context.driver.execute_script("window.open('https://yopmail.com', '_blank');")
+#     context.driver.switch_to.window(context.driver.window_handles[1])  # Switch to the new tab
+#
+#     # Wait for the Yopmail page to load
+#     WebDriverWait(context.driver, 10).until(EC.presence_of_element_located((By.ID, "login")))
+#
+#     # Enter the email address
+#     driver = context.driver
+#     driver.find_element(By.ID, "login").send_keys(yopmail_email)
+#     time.sleep(5)
+#
+#     # Click the "Check Inbox" button
+#     driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/main/div[3]/div/div[1]/div[2]/div/div/form/div/div[1]/div[4]/button/i").click()
+#     time.sleep(5)
+#
+#     # Wait for the inbox to load
+#     WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'mail')]")))
+#
+#     # Locate and click the OTP email (adjust the selector as needed)
+#     otp_email = driver.find_element(By.XPATH, "//div[contains(@class, 'mail')]")
+#     otp_email.click()
+#
+#     # Wait for the email content to load
+#     WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//div[contains(@id, 'mail')]")))
+#
+#     # Extract the OTP from the email content
+#     otp_message = driver.find_element(By.XPATH, "//div[contains(@id, 'mail')]").text
+#     otp = otp_message.split(" ")[-1]  # Adjust this logic based on your email format
+#
+#     print(f"OTP extracted: {otp}")
+#
+#     # Close the Yopmail tab
+#     driver.close()  # Close the Yopmail tab
+#     time.sleep(5)
+#     context.driver.switch_to.window(context.driver.window_handles[0])  # Switch back to the original tab
+#
+#     # Enter the OTP in your application
+#     # otp_input_xpath = RegistrationElements.OtpInputField  # Adjust this to your actual OTP input field XPath
+#     otp_input = WebDriverWait(context.driver, 10).until(
+#         EC.visibility_of_element_located((By.XPATH, "/html/body/ngb-modal-window/div/div/app-success-modal/div[2]/form/div/div"))
+#     )
+#     otp_input.clear()  # Clear the field if necessary
+#     otp_input.send_keys(otp)  # Enter the OTP into the field
+
+
+
+
 def retrieve_otp_and_verify(context, yopmail_email):
-    # Open Yopmail in a new tab
     context.driver.execute_script("window.open('https://yopmail.com', '_blank');")
-    context.driver.switch_to.window(context.driver.window_handles[1])  # Switch to the new tab
+    context.driver.switch_to.window(context.driver.window_handles[1])
 
-    # Wait for the Yopmail page to load
-    WebDriverWait(context.driver, 10).until(EC.presence_of_element_located((By.ID, "login")))
+    email_input = context.driver.find_element(By.ID, "login")
+    email_input.send_keys(yopmail_email)
+    email_input.send_keys(Keys.RETURN)
 
-    # Enter the email address
-    driver = context.driver
-    driver.find_element(By.ID, "login").send_keys(yopmail_email)
+    # Give the page some time to load the mailbox
+    time.sleep(3)
+
+    # Step 3: Switch to the iframe where the email content is displayed
+    context.driver.switch_to.frame("ifinbox")
+
+    # Click on the first email in the inbox to open it
+    email_item = context.driver.find_element(By.XPATH,
+                                     "//div[normalize-space()='Your Account verification OTP']")
+    email_item.click()
+
+    # Give some time for the email content to load
+    time.sleep(3)
+
+    # Switch back to the default content and then to the frame where the email body is displayed
+    context.driver.switch_to.default_content()
+    context.driver.switch_to.frame("ifmail")
+
+    # Step 4: Fetch the email content to extract the OTP
+    email_body = context.driver.find_element(By.XPATH, '//body').text
+    print("Email Content:\n", email_body)
+
+    # Step 5: Use regex to extract the 6-digit OTP from the email body
+    otp_match = re.search(r'(\d{1}\s\d{1}\s\d{1}\s\d{1}\s\d{1}\s\d{1})', email_body)
+
+    if otp_match:
+        otp = otp_match.group(0).replace(" ", "")
+        print("Extracted OTP:", otp)
+    else:
+        print("OTP not found in the email content")
+
+
+    time.sleep(5)
+    context.driver.switch_to.window(context.driver.window_handles[0])
     time.sleep(5)
 
-    # Click the "Check Inbox" button
-    driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/main/div[3]/div/div[1]/div[2]/div/div/form/div/div[1]/div[4]/button/i").click()
-    time.sleep(5)
+    # Enter the OTP into the input fields
+    otp_digits = list(otp)  # Convert the OTP string into a list of digits
+    input_fields = context.driver.find_elements(By.XPATH, "//input[@maxlength='1']")  # Locate all input fields for the OTP
 
-    # Wait for the inbox to load
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'mail')]")))
-
-    # Locate and click the OTP email (adjust the selector as needed)
-    otp_email = driver.find_element(By.XPATH, "//div[contains(@class, 'mail')]")
-    otp_email.click()
-
-    # Wait for the email content to load
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[contains(@id, 'mail')]")))
-
-    # Extract the OTP from the email content
-    otp_message = driver.find_element(By.XPATH, "//div[contains(@id, 'mail')]").text
-    otp = otp_message.split(" ")[-1]  # Adjust this logic based on your email format
-
-    print(f"OTP extracted: {otp}")
-
-    # Close the Yopmail tab
-    driver.close()  # Close the Yopmail tab
-    context.driver.switch_to.window(context.driver.window_handles[0])  # Switch back to the original tab
-
-    # Enter the OTP in your application
-    otp_input_xpath = RegistrationElements.OtpInputField  # Adjust this to your actual OTP input field XPath
-    otp_input = WebDriverWait(context.driver, 10).until(
-        EC.visibility_of_element_located((By.XPATH, otp_input_xpath))
-    )
-    otp_input.clear()  # Clear the field if necessary
-    otp_input.send_keys(otp)  # Enter the OTP into the field
-
-
-
+    for i, digit in enumerate(otp_digits):
+        if i < len(input_fields):  # Ensure we don't go out of bounds
+            input_fields[i].clear()  # Clear the field if necessary
+            input_fields[i].send_keys(digit)
+            context.driver.find_element(By.XPATH, OnboardingElements.otpverifyButton).click()
+            # time.sleep(3)
 
 

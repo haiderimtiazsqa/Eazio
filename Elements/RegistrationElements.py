@@ -24,3 +24,4 @@ class OnboardingElements:
     CityField = "/html/body/app-root/app-get-started/div/div/div[2]/app-business-info/div/div[2]/div[4]/div[2]/div/div/p"
     CityValue = "/html/body/app-root/app-get-started/div/div/div[2]/app-business-info/div/div[2]/div[4]/div[2]/div/ul/li[4]"
     verifyButton = "/html/body/app-root/app-get-started/div/div/div[2]/app-business-info/div/div[2]/div[5]/button"
+    otpverifyButton = "/html/body/ngb-modal-window/div/div/app-success-modal/div[2]/form/div/button"
