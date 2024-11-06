@@ -1,7 +1,7 @@
 class AddEmployeeElements:
     PeopleTabsidebar = "/html/body/app-root/app-user-dashboard/div/div[1]/app-nav-bar/div[3]/ul/li[3]/p"
     Employeetab = "/html/body/app-root/app-people/div[1]/div[2]/div/div[1]/p[2]"
-    AddEmpbutton = "/html/body/app-root/app-people/div[1]/div[2]/div/div[2]/div[1]/div[2]/div[2]/button"
+    AddEmpbutton = "/html/body/app-root/app-people/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/button"
     EmployeeName = "/html/body/app-root/app-people/div[2]/div/div/div[3]/form/div[1]/div[1]/div[1]/input"
     EmployeeLastName = "/html/body/app-root/app-people/div[2]/div/div/div[3]/form/div[1]/div[2]/div/input"
     EmployeeEmail = "/html/body/app-root/app-people/div[2]/div/div/div[3]/form/div[2]/div[1]/div[1]/input"

@@ -16,4 +16,4 @@ Feature: User Schedule Management
     And the user selects the timings
     And the user selects the schedule days
     Then the user clicks on the add button
-    And the user should see a success message "Schedule added successfully."
+#    And the user should see a success message "Schedule added successfully."

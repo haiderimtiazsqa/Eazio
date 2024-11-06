@@ -19,12 +19,11 @@ from Eazio.Variables.LoginVariables import *
 
 
 def URL_open(context):
-    # Set up Chrome options
-    chrome_options = Options()
-    chrome_options.add_argument("--start-maximized")  # Start maximized
 
-    # Initialize the Chrome WebDriver
-    context.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+    # chrome_options = Options()
+    # chrome_options.add_argument("--start-maximized")  # Start maximized
+    #
+    # context.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
 
     # Open the specified URL
     context.driver.get(LoginVariable.application_url)
